@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { StackActions } from '@react-navigation/native'
 import { TextInput, Button } from 'react-native-paper';
 import apiHelper from '../module/apiHelper'
 
-export default function SignIn() {
+export default function SignIn({ navigation }) {
   const [userId, setUserId] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -18,12 +18,12 @@ export default function SignIn() {
     const res = await apiHelper({ url: url, method: method, body: body })
     if (res?.data?.success) {
       console.log(res.data)
+      navigation.navigate('Home')
     }
   }
 
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
       <TextInput
         mode="outlined"
         label="아이디"
