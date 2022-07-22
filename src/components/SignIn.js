@@ -2,10 +2,24 @@ import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
+import apiHelper from '../module/apiHelper'
 
 export default function SignIn() {
-    const [userId, setUserId] = React.useState("");
-    const [password, setPassword] = React.useState("");
+  const [userId, setUserId] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const signIn = async ({ userId: userId, password: password }) => {
+    const url = '/sign-in'
+    const method = 'post'
+    const body = {
+      userId: userId,
+      password: password
+    }
+    const res = await apiHelper({ url: url, method: method, body: body })
+    if (res?.data?.success) {
+      console.log(res.data)
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -16,7 +30,7 @@ export default function SignIn() {
         value={userId}
         onChangeText={userId => setUserId(userId)}
         style={styles.input}
-        />
+      />
       <TextInput
         mode="outlined"
         label="비밀번호"
@@ -25,7 +39,7 @@ export default function SignIn() {
         style={styles.input}
         secureTextEntry={true}
       />
-      <Button icon="login" mode="contained" onPress={() => console.log(`id: ${userId}, password: ${password}`)}>
+      <Button icon="login" mode="contained" onPress={() => signIn({ userId: userId, password: password })}>
         로그인
       </Button>
     </View>
@@ -41,7 +55,6 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '200px',
-    // height: '50px',
     marginBottom: '25px',
   }
 });
