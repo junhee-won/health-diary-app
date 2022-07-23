@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { TextInput, Button } from 'react-native-paper';
 import { Calendar } from 'react-native-calendars';
 
-export default function Calandar({ navigation }) {
+export default function HealthCalendar({ navigation }) {
   const now = new Date().toISOString().split('T')[0]
 
   return (

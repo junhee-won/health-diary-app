@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { TextInput, Button } from 'react-native-paper';
-import Calandar from '../Calandar';
+import { Button } from 'react-native-paper';
 
-export default function Home({ navigation }) {
+export default function Diary({ route, navigation }) {
+  const dateString = route?.params?.day?.dateString
+
   return (
     <View style={styles.container}>
-      <Calandar navigation={navigation} />
+      <Text>{dateString}</Text>
+      <Button icon='plus' onPress={() => navigation.push('AddHealth', { date: dateString })}>운동 추가하기</Button>
     </View>
   );
 }
