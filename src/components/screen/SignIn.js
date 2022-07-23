@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { StackActions } from '@react-navigation/native'
 import { TextInput, Button } from 'react-native-paper';
-import apiHelper from '../module/apiHelper'
+import apiHelper from '../../module/apiHelper'
 
 export default function SignIn({ navigation }) {
   const [userId, setUserId] = React.useState("");

@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
+import Calandar from '../Calandar';
 
 export default function Home({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text>Hello</Text>
+      <Calandar navigation={navigation} />
     </View>
   );
 }
@@ -16,9 +17,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  input: {
-    width: '200px',
-    marginBottom: '25px',
   }
 });
