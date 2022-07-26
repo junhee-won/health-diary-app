@@ -8,6 +8,14 @@ export default function Diary({ route, navigation }) {
   const dateString = route?.params?.day?.dateString
   const [diary, setDiary] = React.useState(null)
 
+  const onPressUpdateDiary = () => {
+    navigation.push('AddDiary', {
+      date: dateString,
+      diary: diary,
+      type: 'update',
+    })
+  }
+
   React.useEffect(() => {
     navigation.addListener('focus', () => {
       (async () => {
@@ -24,7 +32,7 @@ export default function Diary({ route, navigation }) {
       {diary !== null ? (
         <Text>yes diary</Text>
       ) : null}
-      <Button icon='plus' onPress={() => navigation.push('AddDiary', { date: dateString })}>운동 기록하기</Button>
+      <Button icon='plus' onPress={onPressUpdateDiary}>운동 기록하기</Button>
     </View>
   );
 }

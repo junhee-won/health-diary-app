@@ -8,7 +8,9 @@ export default function Home({ navigation }) {
     <View style={styles.container}>
       <HealthCalendar navigation={navigation} />
       <Button icon='dumbbell' onPress={() => navigation.push('AddDiary', {
-        date: new Date().toISOString().split('T')[0]
+        date: new Date().toISOString().split('T')[0],
+        diary: null,
+        type: 'start'
       })}>
         운동하기
       </Button>

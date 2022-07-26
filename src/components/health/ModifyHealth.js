@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button, Divider } from 'react-native-paper';
-import DropDownPicker from 'react-native-dropdown-picker';
 import react from 'react';
 
 export default function ModifyHealth({ props }) {
@@ -22,18 +21,10 @@ export default function ModifyHealth({ props }) {
     { label: '스쿼트', value: '스쿼트' },
   ]);
 
-  react.useEffect(() => {
-    console.log('-----')
-    if (!healts) return
-    console.log('11111')
-    const _healths = [...healts]
-    _healths.forEach((item, index) => { item.uuid === healthUuid ? _healths[index].name = value : null })
-    console.log(_healths)
-    setHealths(_healths)
-  }, [value, healts])
-
   return (
     <View style={styles.box}>
+      <Text>hi</Text>
+      <Text>hi</Text>
       <DropDownPicker
         open={open}
         value={value}
@@ -41,9 +32,23 @@ export default function ModifyHealth({ props }) {
         setOpen={setOpen}
         setValue={setValue}
         setItems={setItems}
+        style={{
+          backgroundColor: 'white',
+          width: '150px'
+        }}
+        containerStyle={{
+          width: '150px',
+          height: 40,
+        }}
+      // textStyle={{
+      //   fontSize: 15,
+      //   backgroundColor: 'red',
+      //   height: '50px'
+      // }}
       />
-      <Text>{healthUuid}</Text>
-      <Text>hello</Text>
+      <View>
+        <Text>hi</Text>
+      </View>
     </View>
   );
 }
@@ -57,6 +62,5 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 50,
     backgroundColor: 'skyblue',
-    zIndex: 1
   }
 });
