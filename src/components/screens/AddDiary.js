@@ -25,9 +25,9 @@ export default function AddDiary({ route, navigation }) {
     _setDiary(cp)
   }
 
-  React.useEffect(() => {
-    console.log(_diary)
-  }, [_diary])
+  // React.useEffect(() => {
+  //   console.log(_diary)
+  // }, [_diary])
 
   return (
     <View style={styles.container}>
