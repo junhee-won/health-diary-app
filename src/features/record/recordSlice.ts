@@ -11,19 +11,21 @@ interface HealthState {
   sets: Array<SetState>;
 }
 
-export interface RecordState {
-  date: string;
+interface DailyRecordState {
   startTime: string;
-  endTime: string;
+  endToime: string;
   healths: Array<HealthState>;
+}
+
+export interface RecordState {
+  yearMonth: string;
+  dailyRecords: Array<DailyRecordState>;
 }
 
 const initialState: RecordState[] = [
   {
-    date: "20220916",
-    startTime: "123",
-    endTime: "46",
-    healths: [{ name: "pullUp", sets: [{ weight: 123, num: 23 }] }],
+    yearMonth: "2022-09",
+    dailyRecords: new Array(32).fill(null),
   },
 ];
 
@@ -31,20 +33,26 @@ export const recordSlice = createSlice({
   name: "records",
   initialState,
   reducers: {
-    updateRecord: (state, action: PayloadAction<RecordState>) => {
+    updateDailyRecord: (state, action) => {
       const index: number = state.findIndex(
-        (item) => item.date === action.payload.date
+        (item) => item.yearMonth === action.payload.yearMonth
       );
       if (index == -1) {
-        state.push(action.payload);
+        const temp = {
+          yearMonth: action.payload.yearMonth,
+          dailyRecords: new Array(32).fill(null),
+        };
+        temp[action.payload.date] = action.payload.dailyRecord;
+        state.push(temp);
       } else {
-        state[index] = action.payload;
+        state[index].dailyRecords[action.payload.date] =
+          action.payload.dailyRecord;
       }
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { updateRecord } = recordSlice.actions;
+export const { updateDailyRecord } = recordSlice.actions;
 
 export default recordSlice.reducer;

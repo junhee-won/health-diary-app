@@ -1,0 +1,68 @@
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { Button } from "react-native-paper";
+import ModifyHealth from "src/components/health/ModifyHealth";
+import useGetRecord from "src/modules/hooks/useGetRecord";
+import UpdateHealthModal from "../modals/updateHealth/UpdateHealthModal";
+import { useDispatch } from "react-redux";
+import deepCopy from "../../modules/deepCopy";
+
+export default function UpdateRecordScreen({ route, navigation }) {
+  const { yearMonth, date, hour, minute, recordType } = route.params;
+  const [record, setRecord] = useGetRecord(yearMonth, date);
+  const [modal, setModal] = useState(false);
+
+  const closeModal = () => {
+    setModal(null);
+  };
+
+  const saveHealth = (type, health) => {
+    if (type === "add") {
+      const temp = deepCopy(record) || [];
+      temp.push(health);
+      setRecord(temp);
+      setModal(null);
+    }
+  };
+
+  const onPressAddHealthButton = () => {
+    setModal(
+      <UpdateHealthModal
+        type="add"
+        health={{ name: null }}
+        closeModal={closeModal}
+        saveHealth={saveHealth}
+      />
+    );
+  };
+
+  useEffect(() => {
+    console.log(record);
+  }, [record]);
+
+  return (
+    <View style={styles.container}>
+      {/* <TopBar
+        props={{
+          leftButton: { icon: "arrow-left", onPress: goBack },
+          rightButton: { icon: "check", onPress: complete },
+          text: date,
+        }}
+      /> */}
+
+      <Button icon="plus" onPress={onPressAddHealthButton}>
+        운동 추가
+      </Button>
+      {modal}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "start",
+  },
+});

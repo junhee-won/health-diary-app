@@ -3,9 +3,9 @@ import { store } from "./src/app/store.ts";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Home from "src/components/screens/Home";
-import Diary from "src/components/screens/Diary";
-import AddDiary from "src/components/screens/AddDiary";
+import HomeScreen from "src/components/screens/HomeScreen";
+import Record from "src/components/screens/Record";
+import UpdateRecordScreen from "src/components/screens/UpdateRecordScreen";
 import SignIn from "src/components/screens/SignIn";
 
 const Stack = createNativeStackNavigator();
@@ -14,9 +14,12 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Diary" component={Diary} />
-          <Stack.Screen name="AddDiary" component={AddDiary} />
+          <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen name="Record" component={Record} />
+          <Stack.Screen
+            name="UpdateRecordScreen"
+            component={UpdateRecordScreen}
+          />
           {/* <Stack.Screen name="SignIn" component={SignIn} /> */}
         </Stack.Navigator>
       </NavigationContainer>

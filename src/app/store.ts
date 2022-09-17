@@ -3,7 +3,7 @@ import recordReducer from "../features/record/recordSlice";
 
 export const store = configureStore({
   reducer: {
-    record: recordReducer,
+    records: recordReducer,
   },
 });
 
