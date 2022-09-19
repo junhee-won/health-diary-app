@@ -34,7 +34,6 @@ export const diariesSlice = createSlice({
   initialState,
   reducers: {
     updateDiary: (state, action) => {
-      console.log(action.payload);
       const index: number = state.findIndex(
         (item) => item.yearMonth === action.payload.yearMonth
       );

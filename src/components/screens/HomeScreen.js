@@ -10,7 +10,6 @@ export default function HomeScreen({ navigation }) {
   useIsFocused();
   const diaries = useSelector((state: RootState) => state.diaries);
   const { daysInAMonth, daysInARow } = updateDays({ diaries });
-  console.log({ daysInAMonth, daysInARow });
 
   const onPressStartHealth = () => {
     const date = new Date();

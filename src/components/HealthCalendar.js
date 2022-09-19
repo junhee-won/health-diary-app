@@ -1,9 +1,46 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Calendar } from "react-native-calendars";
+import { useSelector } from "react-redux";
+
+const customStyles = {
+  container: {
+    backgroundColor: "red",
+    borderRadius: 1,
+  },
+  text: {
+    color: "blue",
+  },
+};
 
 export default function HealthCalendar({ navigation }) {
+  const diaries = useSelector((state: RootState) => state.diaries);
   const now = new Date().toISOString().split("T")[0];
+  const yearMonth = now.slice(0, 7);
+
+  const monthDiariesIndex = diaries.findIndex(
+    (item) => item.yearMonth === yearMonth
+  );
+
+  const markedDates = {};
+  if (monthDiariesIndex !== -1) {
+    for (let i = 1; i <= now.slice(8, 10); i++) {
+      if (diaries[monthDiariesIndex].diaries[i]?.healths) {
+        const nowDay = i < 10 ? "0" + i : i;
+        markedDates[yearMonth + "-" + nowDay] = {
+          customStyles,
+        };
+      }
+    }
+  }
+
+  const onPressDay = (day) => {
+    navigation.push("DiaryScreen", {
+      yearMonth: day.dateString.slice(0, 7),
+      date: day.day,
+      diaryType: "update",
+    });
+  };
 
   return (
     <Calendar
@@ -11,14 +48,14 @@ export default function HealthCalendar({ navigation }) {
       // minDate={'2012-05-10'}
       maxDate={now}
       onDayPress={(day) => {
-        navigation.push("Record", {
-          day: day,
-        });
+        onPressDay(day);
       }}
       //   // onDayLongPress={day => {
       //   //   console.log('selected day', day);
       //   // }}
       monthFormat={"MM"}
+      markingType={"custom"}
+      markedDates={markedDates}
       //   // onMonthChange={month => {
       //   //   console.log('month changed', month);
       //   // }}

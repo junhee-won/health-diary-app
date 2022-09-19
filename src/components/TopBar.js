@@ -7,6 +7,7 @@ export default function TopBar({
   date,
   diaryType,
   onPressRightButton,
+  isUpdated,
 }) {
   const buttonText = diaryType === "start" ? "운동 끝" : "저장";
   return (
@@ -14,9 +15,11 @@ export default function TopBar({
       <Text>
         {yearMonth}-{date}
       </Text>
-      <Button icon="check" onPress={onPressRightButton}>
-        {buttonText}
-      </Button>
+      {(diaryType === "start" || isUpdated) && (
+        <Button style={styles.button} icon="check" onPress={onPressRightButton}>
+          {buttonText}
+        </Button>
+      )}
     </View>
   );
 }
@@ -25,9 +28,12 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "pink",
     alignItems: "center",
-    justifyContent: "flex-end",
-    flexDirection: "row",
+    justifyContent: "center",
     height: 50,
     width: "100%",
+  },
+  button: {
+    position: "absolute",
+    right: 0,
   },
 });

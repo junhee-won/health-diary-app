@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { Button } from "react-native-paper";
+import { Button, TextInput } from "react-native-paper";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useDispatch, useSelector } from "react-redux";
 import { updateDiary } from "../../features/diaries/diariesSlice";
 import TopBar from "../TopBar";
@@ -27,6 +28,7 @@ export default function DiaryScreen({ route, navigation }) {
   );
   const [endTime, setEndTime] = useState(diary?.endTime);
   const [modal, setModal] = useState(null);
+  const [isUpdated, setIsUpdated] = useState(false);
 
   const saveDiary = () => {
     if (diaryType === "start") {
@@ -39,6 +41,18 @@ export default function DiaryScreen({ route, navigation }) {
             healths: healths,
             startTime: startTime,
             endTime: `${nowDate.getHours()}-${nowDate.getMinutes()}`,
+          },
+        })
+      );
+    } else {
+      dispatch(
+        updateDiary({
+          yearMonth: yearMonth,
+          date: date,
+          diary: {
+            healths: healths,
+            startTime: startTime,
+            endTime: endTime,
           },
         })
       );
@@ -74,6 +88,7 @@ export default function DiaryScreen({ route, navigation }) {
       _healths[index].name = health;
     }
     setHealths(_healths);
+    setIsUpdated(true);
     setModal(null);
   };
 
@@ -115,6 +130,7 @@ export default function DiaryScreen({ route, navigation }) {
       };
     }
     setHealths(_healths);
+    setIsUpdated(true);
     setModal(null);
   };
 
@@ -125,9 +141,26 @@ export default function DiaryScreen({ route, navigation }) {
         date={date}
         diaryType={diaryType}
         onPressRightButton={saveDiary}
+        isUpdated={isUpdated}
       />
-      {startTime && <Text>시작시간: {startTime}</Text>}
-      {endTime && <Text>종료시간: {endTime}</Text>}
+      <View style={styles.time}>
+        <Text>
+          시작시간
+          <TextInput
+            value={startTime}
+            onChangeText={(text) => setStartTime(text)}
+          />
+        </Text>
+      </View>
+      <View style={styles.time}>
+        <Text>
+          종료시간
+          <TextInput
+            value={endTime}
+            onChangeText={(text) => setEndTime(text)}
+          />
+        </Text>
+      </View>
       <ScrollView
         contentContainerStyle={{
           backgroundColor: "yellow",
@@ -194,5 +227,10 @@ const styles = StyleSheet.create({
     height: 50,
     margin: 10,
     flexDirection: "row",
+  },
+  time: {
+    backgroundColor: "red",
+    height: 40,
+    width: 300,
   },
 });

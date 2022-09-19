@@ -12,7 +12,7 @@ export default function updateDays({ diaries }) {
   );
   if (monthDiariesIndex !== -1) {
     for (let i = date; i >= 1; i--) {
-      if (diaries[monthDiariesIndex].diaries[i]?.endTime) daysInAMonth++;
+      if (diaries[monthDiariesIndex].diaries[i]?.healths) daysInAMonth++;
     }
   }
 
@@ -31,7 +31,7 @@ export default function updateDays({ diaries }) {
       );
     }
     if (monthDiariesIndex === -1) break;
-    if (diaries[monthDiariesIndex].diaries[i--]?.endTime) daysInARow++;
+    if (diaries[monthDiariesIndex].diaries[i--]?.healths) daysInARow++;
     else break;
   }
 
