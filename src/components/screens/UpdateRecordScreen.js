@@ -6,7 +6,7 @@ import useGetRecord from "src/modules/hooks/useGetRecord";
 import UpdateHealthModal from "../modals/updateHealth/UpdateHealthModal";
 import { useDispatch, useSelector } from "react-redux";
 import deepCopy from "../../modules/deepCopy";
-import { updateDaysInARow } from "../../features/daysInARow/daysInARowSlice";
+import { updateDaysInARow } from "../../features/days/dyasSlice";
 
 export default function UpdateRecordScreen({ route, navigation }) {
   const dispatch = useDispatch();
