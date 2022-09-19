@@ -1,11 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import recordReducer from "../features/record/recordSlice";
-import daysReducer from "../features/days/dyasSlice";
+import diariesReducer from "../features/diaries/diariesSlice";
 
 export const store = configureStore({
   reducer: {
-    records: recordReducer,
-    days: daysReducer,
+    diaries: diariesReducer,
   },
 });
 

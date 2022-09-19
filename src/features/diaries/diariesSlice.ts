@@ -11,51 +11,51 @@ interface HealthState {
   sets: Array<SetState>;
 }
 
-interface DailyRecordState {
+interface DiaryState {
   startTime: string;
   endTime: string;
   healths: Array<HealthState>;
 }
 
-export interface RecordState {
+export interface MonthDiariesState {
   yearMonth: string;
-  dailyRecords: Array<DailyRecordState>;
+  diaries: Array<DiaryState>;
 }
 
-const initialState: RecordState[] = [
+const initialState: MonthDiariesState[] = [
   {
     yearMonth: "2022-09",
-    dailyRecords: new Array(32).fill(null),
+    diaries: new Array(32).fill(null),
   },
 ];
 
-export const recordSlice = createSlice({
-  name: "records",
+export const diariesSlice = createSlice({
+  name: "diaries",
   initialState,
   reducers: {
-    updateDailyRecord: (state, action) => {
+    updateDiary: (state, action) => {
+      console.log(action.payload);
       const index: number = state.findIndex(
         (item) => item.yearMonth === action.payload.yearMonth
       );
-      if (index == -1) {
+      if (index === -1) {
         const temp = {
           yearMonth: action.payload.yearMonth,
-          dailyRecords: new Array(32).fill(null),
+          diaries: new Array(32).fill(null),
         };
-        temp[action.payload.date] = action.payload.dailyRecord;
+        temp[action.payload.date] = action.payload.diary;
         state.push(temp);
       } else {
-        state[index].dailyRecords[action.payload.date] =
-          action.payload.dailyRecord;
+        state[index].diaries[action.payload.date] = action.payload.diary;
       }
     },
-    setRecords: (state, action) => {
+    setDiaries: (state, action) => {
       state = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { updateDailyRecord, setRecords } = recordSlice.actions;
+export const { updateDiary, setDiaries } = diariesSlice.actions;
 
-export default recordSlice.reducer;
+export default diariesSlice.reducer;

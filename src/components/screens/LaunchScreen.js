@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
-import { setRecords } from "../../features/record/recordSlice";
+import { setDiaries } from "../../features/diaries/diariesSlice";
 import { getAsyncStorage } from "../../modules/AsyncStorageHelper";
 
 export default function LaunchScreen({ navigation }) {
@@ -13,7 +13,16 @@ export default function LaunchScreen({ navigation }) {
       );
       await Promise.all([timer, getAsyncStorage("healthDiaryAppStoarge")]).then(
         ([res1, res2]) => {
-          dispatch(setRecords(res2.records));
+          dispatch(
+            setDiaries(
+              res2.diaries || [
+                {
+                  yearMonth: "2022-09",
+                  diaries: new Array(32).fill(null),
+                },
+              ]
+            )
+          );
           navigation.replace("HomeScreen");
         }
       );
