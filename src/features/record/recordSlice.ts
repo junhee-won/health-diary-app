@@ -49,10 +49,13 @@ export const recordSlice = createSlice({
           action.payload.dailyRecord;
       }
     },
+    setRecords: (state, action) => {
+      state = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { updateDailyRecord } = recordSlice.actions;
+export const { updateDailyRecord, setRecords } = recordSlice.actions;
 
 export default recordSlice.reducer;

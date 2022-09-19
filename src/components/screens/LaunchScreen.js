@@ -1,26 +1,20 @@
 import React, { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Button } from "react-native-paper";
-import HealthCalendar from "src/components/HealthCalendar";
-import { useSelector, useDispatch } from "react-redux";
-import { updateRecord } from "../../features/record/recordSlice";
-import { useIsFocused } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { setRecords } from "../../features/record/recordSlice";
 import { getAsyncStorage } from "../../modules/AsyncStorageHelper";
-import { setAsyncStorage } from "../../modules/AsyncStorageHelper";
 
 export default function LaunchScreen({ navigation }) {
+  const dispatch = useDispatch();
   useEffect(() => {
     (async function () {
-      setAsyncStorage("healthDiaryAppStoarge", {
-        test: "abc",
-      });
       const timer = new Promise((resolve, reject) =>
         setTimeout(() => resolve(true), 3000)
       );
       await Promise.all([timer, getAsyncStorage("healthDiaryAppStoarge")]).then(
         ([res1, res2]) => {
-          console.log(res1);
-          console.log(res2);
+          dispatch(setRecords(res2.records));
+          navigation.replace("HomeScreen");
         }
       );
     })();

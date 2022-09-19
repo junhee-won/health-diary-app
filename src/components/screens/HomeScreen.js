@@ -8,10 +8,10 @@ import { useIsFocused } from "@react-navigation/native";
 
 export default function HomeScreen({ navigation }) {
   const isFocused = useIsFocused();
-  const daysInARow = useSelector(
-    (state: RootState) => state.daysInARow.daysInARow
-  );
-  console.log("in home ", daysInARow);
+  // const daysInARow = useSelector(
+  //   (state: RootState) => state.daysInARow.daysInARow
+  // );
+  // console.log("in home ", daysInARow);
   // const [currentDaysInARow, setCurrentDaysInARow] = React.useState(daysInARow);
 
   // React.useEffect(() => {

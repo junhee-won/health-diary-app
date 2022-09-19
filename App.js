@@ -1,5 +1,5 @@
 import { Provider } from "react-redux";
-import { store } from "src/app/store";
+import { store } from "./src/app/store";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LaunchScreen from "src/components/screens/LaunchScreen";
