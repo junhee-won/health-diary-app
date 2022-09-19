@@ -4,10 +4,21 @@ import { Button } from "react-native-paper";
 import HealthCalendar from "src/components/HealthCalendar";
 import { useSelector, useDispatch } from "react-redux";
 import { updateRecord } from "../../features/record/recordSlice";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function HomeScreen({ navigation }) {
-  const records = useSelector((state: RootState) => state);
+  const isFocused = useIsFocused();
+  const daysInARow = useSelector(
+    (state: RootState) => state.daysInARow.daysInARow
+  );
+  console.log("in home ", daysInARow);
+  // const [currentDaysInARow, setCurrentDaysInARow] = React.useState(daysInARow);
+
+  // React.useEffect(() => {
+  //   setCurrentDaysInARow(daysInARow);
+  // }, [daysInARow]);
   const dispatch = useDispatch();
+
   return (
     <View style={styles.container}>
       <HealthCalendar navigation={navigation} />
@@ -28,6 +39,7 @@ export default function HomeScreen({ navigation }) {
       >
         운동하기
       </Button>
+      {/* <Text>{currentDaysInARow}</Text> */}
     </View>
   );
 }

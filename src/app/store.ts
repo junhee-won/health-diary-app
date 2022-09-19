@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import recordReducer from "../features/record/recordSlice";
+import daysInARowReducer from "../features/daysInARow/daysInARowSlice";
 
 export const store = configureStore({
   reducer: {
     records: recordReducer,
+    daysInARow: daysInARowReducer,
   },
 });
 

@@ -4,10 +4,12 @@ import { Button } from "react-native-paper";
 import ModifyHealth from "src/components/health/ModifyHealth";
 import useGetRecord from "src/modules/hooks/useGetRecord";
 import UpdateHealthModal from "../modals/updateHealth/UpdateHealthModal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import deepCopy from "../../modules/deepCopy";
+import { updateDaysInARow } from "../../features/daysInARow/daysInARowSlice";
 
 export default function UpdateRecordScreen({ route, navigation }) {
+  const dispatch = useDispatch();
   const { yearMonth, date, hour, minute, recordType } = route.params;
   const [record, setRecord] = useGetRecord(yearMonth, date);
   const [modal, setModal] = useState(false);
@@ -36,6 +38,10 @@ export default function UpdateRecordScreen({ route, navigation }) {
     );
   };
 
+  const temp = () => {
+    dispatch(updateDaysInARow(123));
+  };
+
   useEffect(() => {
     console.log(record);
   }, [record]);
@@ -53,6 +59,7 @@ export default function UpdateRecordScreen({ route, navigation }) {
       <Button icon="plus" onPress={onPressAddHealthButton}>
         운동 추가
       </Button>
+      <Button onPress={temp}>test</Button>
       {modal}
     </View>
   );

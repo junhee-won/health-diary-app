@@ -13,7 +13,7 @@ interface HealthState {
 
 interface DailyRecordState {
   startTime: string;
-  endToime: string;
+  endTime: string;
   healths: Array<HealthState>;
 }
 
