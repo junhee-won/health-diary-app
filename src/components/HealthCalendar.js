@@ -1,38 +1,14 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { Calendar } from "react-native-calendars";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
-
-const customStyles = {
-  container: {
-    backgroundColor: "red",
-    borderRadius: 1,
-  },
-  text: {
-    color: "blue",
-  },
-};
+import Text from "./basic/Text";
 
 export default function HealthCalendar({ navigation }) {
   const diaries = useSelector((state: RootState) => state.diaries);
   const now = new Date().toISOString().split("T")[0];
-  const yearMonth = now.slice(0, 7);
-
-  const monthDiariesIndex = diaries.findIndex(
-    (item) => item.yearMonth === yearMonth
-  );
-
-  const markedDates = {};
-  if (monthDiariesIndex !== -1) {
-    for (let i = 1; i <= now.slice(8, 10); i++) {
-      if (diaries[monthDiariesIndex].diaries[i]?.healths) {
-        const nowDay = i < 10 ? "0" + i : i;
-        markedDates[yearMonth + "-" + nowDay] = {
-          customStyles,
-        };
-      }
-    }
-  }
+  const [yearMonth, setYearMonth] = useState(now.slice(0, 7));
 
   const onPressDay = (day) => {
     navigation.push("DiaryScreen", {
@@ -42,55 +18,155 @@ export default function HealthCalendar({ navigation }) {
     });
   };
 
+  const onPressLeftArrow = () => {
+    const year = Number(yearMonth.slice(0, 4));
+    const month = yearMonth.slice(5);
+    const _month = Number(month) - 1;
+    if (_month == 0) {
+      setYearMonth(`${year - 1}-12`);
+    } else if (_month < 10) {
+      setYearMonth(`${year}-0${_month}`);
+    } else {
+      setYearMonth(`${year}-${_month}`);
+    }
+  };
+
+  const onPressRightArrow = () => {
+    const year = Number(yearMonth.slice(0, 4));
+    const month = yearMonth.slice(5);
+    const _month = Number(month) + 1;
+    if (_month == 13) {
+      setYearMonth(`${year + 1}-01`);
+    } else if (_month < 10) {
+      setYearMonth(`${year}-0${_month}`);
+    } else {
+      setYearMonth(`${year}-${_month}`);
+    }
+  };
+
   return (
-    <Calendar
-      initialDate={now}
-      // minDate={'2012-05-10'}
-      maxDate={now}
-      onDayPress={(day) => {
-        onPressDay(day);
+    <View
+      style={{
+        position: "relative",
+        alignItems: "center",
       }}
-      //   // onDayLongPress={day => {
-      //   //   console.log('selected day', day);
-      //   // }}
-      monthFormat={"MM"}
-      markingType={"custom"}
-      markedDates={markedDates}
-      //   // onMonthChange={month => {
-      //   //   console.log('month changed', month);
-      //   // }}
-      //   hideArrows={false}
-      //   // // Replace default arrows with custom ones (direction can be 'left' or 'right')
-      //   renderArrow={(direction) =>
-      //     direction === 'left' ? <Button icon="arrow-left" onPress={() => } /> : <Button icon="arrow-right" />
-      //   }
-      //   // // Do not show days of other months in month page. Default = false
-      //   // hideExtraDays={true}
-      //   // // If hideArrows = false and hideExtraDays = false do not switch month when tapping on greyed out
-      //   // // day from another month that is visible in calendar page. Default = false
-      //   // disableMonthChange={true}
-      //   // // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday
-      //   // firstDay={1}
-      //   // // Hide day names. Default = false
-      //   // hideDayNames={true}
-      //   // // Show week numbers to the left. Default = false
-      //   // showWeekNumbers={true}
-      //   // // Handler which gets executed when press arrow icon left. It receive a callback can go back month
-      //   onPressArrowLeft={subtractMonth => console.log(subtractMonth)}
-      // // // Handler which gets executed when press arrow icon right. It receive a callback can go next month
-      // // onPressArrowRight={addMonth => addMonth()}
-      // // // Disable left arrow. Default = false
-      // // disableArrowLeft={true}
-      // // // Disable right arrow. Default = false
-      // // disableArrowRight={true}
-      // // // Disable all touch events for disabled days. can be override with disableTouchEvent in markedDates
-      // // disableAllTouchEventsForDisabledDays={true}
-      // // // Replace default month and year title with custom one. the function receive a date as parameter
-      // // renderHeader={date => {
-      // //   /*Return JSX*/
-      // // }}
-      // // Enable the option to swipe between months. Default = false
-      // enableSwipeMonths={true}
-    />
+    >
+      <Calendar
+        style={{
+          height: 320,
+          minWidth: "80%",
+          marginBottom: 30,
+          borderRadius: 25,
+          height: "auto",
+          paddingBottom: 10,
+        }}
+        onPressArrowLeft={(subtractMonth) => {
+          subtractMonth();
+          onPressLeftArrow();
+        }}
+        onPressArrowRight={(addMonth) => {
+          addMonth();
+          onPressRightArrow();
+        }}
+        markingType={"custom"}
+        initialDate={now}
+        maxDate={now}
+        dayComponent={({ date, state }) => {
+          const monthDiariesIndex = diaries.findIndex(
+            (item) => item?.yearMonth === date?.dateString.slice(0, 7)
+          );
+          const isHealth = diaries[monthDiariesIndex]?.diaries[date.day]
+            ?.healths
+            ? true
+            : false;
+          return (
+            <TouchableOpacity
+              onPress={() => onPressDay(date)}
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: 5,
+                alignItems: "center",
+                justifyContent: "center",
+                borderColor: "#3cb731",
+                borderWidth: isHealth ? 2 : 0,
+              }}
+            >
+              <Text
+                color={state === "disabled" ? "#CCCCCC" : "black"}
+                fontSize={20}
+              >
+                {date.day}
+              </Text>
+            </TouchableOpacity>
+          );
+        }}
+        hideDayNames={false}
+        renderArrow={(direction) => {
+          if (direction === "left") {
+            return <FontAwesome5 name="arrow-left" size={20} color="#005eb8" />;
+          } else {
+            return (
+              <FontAwesome5 name="arrow-right" size={20} color="#005eb8" />
+            );
+          }
+        }}
+        monthFormat={"MM"}
+      />
+      <View
+        style={{
+          flexDirection: "row",
+          position: "absolute",
+          top: 45,
+          height: 30,
+          minWidth: "80%",
+          alignItems: "center",
+          justifyContent: "space-evenly",
+          backgroundColor: "white",
+          borderTopColor: "#005eb8",
+          borderTopWidth: 2,
+          borderBottomColor: "#005eb8",
+          borderBottomWidth: 2,
+        }}
+      >
+        <Text fontSize={20} color="black">
+          월
+        </Text>
+        <Text fontSize={20} color="black">
+          화
+        </Text>
+        <Text fontSize={20} color="black">
+          수
+        </Text>
+        <Text fontSize={20} color="black">
+          목
+        </Text>
+        <Text fontSize={20} color="black">
+          금
+        </Text>
+        <Text fontSize={20} color="black">
+          토
+        </Text>
+        <Text fontSize={20} color="black">
+          일
+        </Text>
+      </View>
+      <View
+        style={{
+          flexDirection: "row",
+          position: "absolute",
+          top: 2,
+          height: 40,
+          minWidth: "40%",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "white",
+        }}
+      >
+        <Text fontSize={35} color="black">
+          {yearMonth.slice(5)}
+        </Text>
+      </View>
+    </View>
   );
 }

@@ -10,9 +10,9 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     height: "100%",
-    backgroundColor: "rgba(52, 52, 52, 0.3)",
+    backgroundColor: "rgba(52, 52, 52, 0.5)",
     alignItems: "center",
     justifyContent: "start",
-    padding: 50,
+    padding: 30,
   },
 });

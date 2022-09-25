@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { setAsyncStorage } from "../../modules/AsyncStorageHelper";
 
 interface SetState {
   weight: number;
@@ -47,6 +48,7 @@ export const diariesSlice = createSlice({
       } else {
         state[index].diaries[action.payload.date] = action.payload.diary;
       }
+      setAsyncStorage("healthDiaryAppStoarge", state);
     },
     setDiaries: (state, action) => {
       state = action.payload;

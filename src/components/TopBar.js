@@ -1,5 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import Text from "./basic/Text";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { Button } from "react-native-paper";
 
 export default function TopBar({
@@ -9,15 +11,22 @@ export default function TopBar({
   onPressRightButton,
   isUpdated,
 }) {
-  const buttonText = diaryType === "start" ? "운동 끝" : "저장";
   return (
     <View style={styles.container}>
-      <Text>
-        {yearMonth}-{date}
+      <Text fontSize={20} color="white">
+        {yearMonth.slice(0, 4)}년&nbsp;
+        {yearMonth.slice(5, 7)}월&nbsp;
+        {date}일
       </Text>
       {(diaryType === "start" || isUpdated) && (
-        <Button style={styles.button} icon="check" onPress={onPressRightButton}>
-          {buttonText}
+        <Button
+          style={styles.button}
+          mode="contained"
+          onPress={onPressRightButton}
+        >
+          <Text fontSize={20} color="#005eb8">
+            &nbsp;저장
+          </Text>
         </Button>
       )}
     </View>
@@ -26,14 +35,18 @@ export default function TopBar({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "pink",
+    backgroundColor: "#005eb8",
     alignItems: "center",
     justifyContent: "center",
-    height: 50,
+    height: 70,
     width: "100%",
+    borderBottomColor: "white",
+    borderBottomWidth: 5,
   },
   button: {
     position: "absolute",
     right: 0,
+    width: 80,
+    margin: 10,
   },
 });
