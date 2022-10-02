@@ -9,7 +9,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LaunchScreen from "src/components/screens/LaunchScreen";
 import HomeScreen from "src/components/screens/HomeScreen";
 import DiaryScreen from "src/components/screens/DiaryScreen";
-import { Button } from "react-native-paper";
 
 const theme = {
   ...defaultTheme,

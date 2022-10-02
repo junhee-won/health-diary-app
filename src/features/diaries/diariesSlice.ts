@@ -23,6 +23,12 @@ export interface MonthDiariesState {
   diaries: Array<DiaryState>;
 }
 
+interface PayloadActionProps {
+  yearMonth: string;
+  date: string;
+  diary: DiaryState;
+}
+
 const initialState: MonthDiariesState[] = [
   {
     yearMonth: "2022-09",
@@ -34,7 +40,7 @@ export const diariesSlice = createSlice({
   name: "diaries",
   initialState,
   reducers: {
-    updateDiary: (state, action) => {
+    updateDiary: (state, action: PayloadAction<PayloadActionProps>) => {
       const index: number = state.findIndex(
         (item) => item.yearMonth === action.payload.yearMonth
       );
