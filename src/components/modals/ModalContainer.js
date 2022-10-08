@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "rgba(52, 52, 52, 0.5)",
     alignItems: "center",
-    justifyContent: "start",
+    justifyContent: "flex-start",
     padding: 30,
   },
 });

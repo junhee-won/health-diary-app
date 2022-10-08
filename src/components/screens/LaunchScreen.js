@@ -13,9 +13,10 @@ export default function LaunchScreen({ navigation }) {
       );
       await Promise.all([timer, getAsyncStorage("healthDiaryAppStoarge")]).then(
         ([res1, res2]) => {
+          console.log(res2);
           dispatch(
             setDiaries(
-              res2.diaries || [
+              res2?.diaries || [
                 {
                   yearMonth: "2022-09",
                   diaries: new Array(32).fill(null),
@@ -23,7 +24,7 @@ export default function LaunchScreen({ navigation }) {
               ]
             )
           );
-          // navigation.replace("HomeScreen");
+          navigation.replace("HomeScreen");
         }
       );
     })();

@@ -1,16 +1,11 @@
 {
   "expo": {
-    "name": "HealthDiaryApp",
+    "name": "운동하자",
     "slug": "HealthDiaryApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/health_app_logo.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -22,12 +17,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/health_app_logo.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.junheeexpo.HealthDiaryApp"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/health_app_logo.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "08e5600f-3324-41ee-bb54-330e44e16527"
+      }
     }
   }
 }
