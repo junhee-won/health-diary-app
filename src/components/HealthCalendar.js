@@ -7,8 +7,10 @@ import Text from "./basic/Text";
 
 export default function HealthCalendar({ navigation }) {
   const diaries = useSelector((state: RootState) => state.diaries);
-  const now = new Date().toISOString().split("T")[0];
-  console.log({ now });
+  const _date = new Date();
+  const now = `${_date.getFullYear()}-${
+    _date.getMonth() < 9 ? "0" + (_date.getMonth() + 1) : _date.getMonth() + 1
+  }-${_date.getDate() < 10 ? "0" + _date.getDate() : _date.getDate()}`;
   const [yearMonth, setYearMonth] = useState(now.slice(0, 7));
 
   const onPressDay = (day) => {

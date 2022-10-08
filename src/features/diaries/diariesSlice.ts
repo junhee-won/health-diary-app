@@ -29,9 +29,14 @@ interface PayloadActionProps {
   diary: DiaryState;
 }
 
+const _date = new Date();
+const now = `${_date.getFullYear()}-${
+  _date.getMonth() < 9 ? "0" + (_date.getMonth() + 1) : _date.getMonth() + 1
+}`;
+
 const initialState: MonthDiariesState[] = [
   {
-    yearMonth: "2022-09",
+    yearMonth: now,
     diaries: new Array(32).fill(null),
   },
 ];
@@ -57,7 +62,7 @@ export const diariesSlice = createSlice({
       setAsyncStorage("healthDiaryAppStoarge", state);
     },
     setDiaries: (state, action) => {
-      state = action.payload;
+      return action.payload;
     },
   },
 });

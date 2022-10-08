@@ -13,12 +13,17 @@ export default function LaunchScreen({ navigation }) {
       );
       await Promise.all([timer, getAsyncStorage("healthDiaryAppStoarge")]).then(
         ([res1, res2]) => {
-          console.log(res2);
+          const _date = new Date();
+          const now = `${_date.getFullYear()}-${
+            _date.getMonth() < 9
+              ? "0" + (_date.getMonth() + 1)
+              : _date.getMonth() + 1
+          }`;
           dispatch(
             setDiaries(
-              res2?.diaries || [
+              res2 || [
                 {
-                  yearMonth: "2022-09",
+                  yearMonth: now,
                   diaries: new Array(32).fill(null),
                 },
               ]

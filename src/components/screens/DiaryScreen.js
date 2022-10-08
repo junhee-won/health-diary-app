@@ -57,7 +57,6 @@ export default function DiaryScreen({ route, navigation }) {
         })
       );
     }
-    console.log({ yearMonth, date, healths });
     navigation.replace("HomeScreen");
   };
 
