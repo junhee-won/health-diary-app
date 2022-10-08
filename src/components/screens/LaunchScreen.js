@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import { useDispatch } from "react-redux";
 import { setDiaries } from "../../features/diaries/diariesSlice";
 import { getAsyncStorage } from "../../modules/AsyncStorageHelper";
@@ -23,14 +23,21 @@ export default function LaunchScreen({ navigation }) {
               ]
             )
           );
-          navigation.replace("HomeScreen");
+          // navigation.replace("HomeScreen");
         }
       );
     })();
   });
   return (
     <View style={styles.container}>
-      <Text>LaunchSceren</Text>
+      <Image
+        style={{ width: 150, height: 150 }}
+        source={require("../../../assets/health_app_logo.png")}
+      />
+      <Image
+        style={{ width: 300, height: 300, margin: 50 }}
+        source={require("../../../assets/text.png")}
+      />
     </View>
   );
 }
@@ -40,6 +47,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#005eb8",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-end",
   },
 });

@@ -6,7 +6,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import { useIsFocused } from "@react-navigation/native";
 import HealthCalendar from "src/components/HealthCalendar";
-import updateDays from "src/modules/updateDays";
+import updateDays from "../../modules/updateDays";
 import * as Font from "expo-font";
 import { getAsyncStorage } from "../../modules/AsyncStorageHelper";
 Font.loadAsync({
