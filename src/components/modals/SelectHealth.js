@@ -62,7 +62,7 @@ export default function SelectHealth({ onPressButton, healthIndex }) {
                   key={index}
                   onPress={() => setActiveIndex(index)}
                 >
-                  <Text fontSize={25} color="white">
+                  <Text fontSize={20} color="white">
                     {item.healthType}
                   </Text>
                 </Button>

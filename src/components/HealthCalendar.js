@@ -78,10 +78,10 @@ export default function HealthCalendar({ navigation }) {
           const monthDiariesIndex = diaries.findIndex(
             (item) => item?.yearMonth === date?.dateString.slice(0, 7)
           );
-          const isHealth = diaries[monthDiariesIndex]?.diaries[date.day]
-            ?.healths
-            ? true
-            : false;
+          const isHealth =
+            diaries[monthDiariesIndex]?.diaries[date.day]?.healths.length > 0
+              ? true
+              : false;
           return (
             <TouchableOpacity
               onPress={() => onPressDay(date)}
@@ -121,7 +121,7 @@ export default function HealthCalendar({ navigation }) {
           flexDirection: "row",
           position: "absolute",
           top: 45,
-          height: 30,
+          height: 35,
           minWidth: "80%",
           alignItems: "center",
           justifyContent: "space-evenly",

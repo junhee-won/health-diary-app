@@ -123,6 +123,13 @@ export default function DiaryScreen({ route, navigation }) {
     setIsUpdated(true);
   };
 
+  const deleteHealth = (index) => {
+    const _healths = deepCopy(healths);
+    _healths.splice(index, 1);
+    setHealths(_healths);
+    setIsUpdated(true);
+  };
+
   const deleteSet = (healthIndex, setIndex) => {
     const _healths = deepCopy(healths);
     _healths[healthIndex].sets.splice(setIndex, 1);
@@ -176,7 +183,13 @@ export default function DiaryScreen({ route, navigation }) {
                   {item.name}
                 </Text>
                 <Button
-                  style={styles.titleButton}
+                  onPress={() => deleteHealth(index)}
+                  style={{ position: "absolute", right: 0 }}
+                >
+                  <FontAwesome5 name="times" color="white" size={20} />
+                </Button>
+                <Button
+                  style={{ position: "absolute", left: 0 }}
                   onPress={() => onPressHealthName(index)}
                 >
                   <FontAwesome5 name="exchange-alt" size={24} color="white" />
@@ -262,10 +275,6 @@ const styles = StyleSheet.create({
     position: "relative",
     borderBottomWidth: 2,
     borderBottomColor: "white",
-  },
-  titleButton: {
-    position: "absolute",
-    right: 0,
   },
   set: {
     height: 30,
