@@ -13,7 +13,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.junheeexpo.HealthDiaryApp"
     },
     "android": {
       "adaptiveIcon": {
